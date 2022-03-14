@@ -11,8 +11,6 @@ const priceIds = {
   basicYearly: process.env.NEXT_PUBLIC_PRICE_BASIC_YEARLY ?? '',
   professionalMonthly: process.env.NEXT_PUBLIC_PRICE_PRO_MONTHLY ?? '',
   professionalYearly: process.env.NEXT_PUBLIC_PRICE_PRO_YEARLY ?? '',
-  masterMonthly: process.env.NEXT_PUBLIC_PRICE_MASTER_MONTHLY ?? '',
-  masterYearly: process.env.NEXT_PUBLIC_PRICE_MASTER_YEARLY ?? '',
 }
 
 export default function Pricing() {
@@ -42,7 +40,7 @@ export default function Pricing() {
       setPriceError({
         priceId: priceId,
         message: `
-        This is a demo application. The real Stripe price ID's are not configured. 
+        This is a demo application. The real Stripe price ID's are not configured.
         This action would redirect a user to Stripe where they can start/manage their subscription.`
       });
     } finally {
@@ -72,7 +70,7 @@ export default function Pricing() {
             className={`border border-gray-300 border-solid rounded-md m-1 px-8 py-2 text-sm whitespace-nowrap focus:outline-none focus:z-5
             ${billingInterval === 'year' ?
                 'ml-1 relative w-1/2 text-white font-bold bg-primary-500' :
-                'relative w-1/2 bg-white text-black shadow-sm'} 
+                'relative w-1/2 bg-white text-black shadow-sm'}
                `}>
             Yearly billing
           </button>
