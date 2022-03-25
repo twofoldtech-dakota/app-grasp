@@ -8,7 +8,7 @@ export default function Footer() {
 				<div className="col-span-1 lg:col-span-2">
 					<Link href="/">
 						<a className="flex w-12 h-12 my-2 ml-4 sm:ml-4 lg:ml-0">
-							<Logo height={48} width={48} />
+							<Logo isIcon={true} height={48} width={48} />
 						</a>
 					</Link>
 				</div>

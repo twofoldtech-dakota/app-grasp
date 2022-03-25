@@ -151,7 +151,7 @@ export default function Pricing() {
 							Automated trading journal
 						</li>
 						<li className="pt-4 pb-4 border-b border-gray-200">
-							Vip discord access
+							Industry leading trade analytics
 						</li>
 						<li className="pt-4 pb-4 border-b border-gray-200">
 							Indicator suite (coming soon)
