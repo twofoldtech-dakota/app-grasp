@@ -19,22 +19,31 @@ export default function Navbar() {
 						<Logo height={48} width={150} />
 					</a>
 				</Link>
-				<div className="hidden lg:block">
-					<ul className="inline-flex">
-						<li>
-							<Link href="/pricing">
-								<a className="header-link">Pricing</a>
-							</Link>
-						</li>
-						<li>
-							<Link href="/blog">
-								<a className="header-link">Blog</a>
-							</Link>
-						</li>
-					</ul>
+				<div className="justify-center hidden mx-auto lg:block ">
+					{session ? (
+						<ul className="inline-flex">
+							<li>
+								<Link href="/trades">
+									<a className="header-link">Trades</a>
+								</Link>
+							</li>
+						</ul>
+					) : (
+						<ul className="inline-flex">
+							<li>
+								<Link href="/pricing">
+									<a className="header-link">Pricing</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/blog">
+									<a className="header-link">Blog</a>
+								</Link>
+							</li>{' '}
+						</ul>
+					)}
 				</div>
-
-				<div className="justify-end flex-1 hidden lg:flex">
+				<div className="justify-end hidden lg:flex">
 					{session ? (
 						<div className="inline-flex">
 							<div className="relative cursor-pointer group">
