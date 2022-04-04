@@ -1,4 +1,8 @@
 import { PageSEO } from '@/components/seo';
+import ProtectedRoute from '@/utils/protected-route';
+import { supabaseAdmin } from '@/utils/supabase-admin-client';
+import { supabase } from '@/utils/supabase-client';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 export default function Trades() {
 	return (
@@ -16,3 +20,24 @@ export default function Trades() {
 		</>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = (
+	context: GetServerSidePropsContext
+) =>
+	ProtectedRoute(context, null, async () => {
+		const { user } = await supabase.auth.api.getUserByCookie(context.req);
+		const { data: subscription, error: subscriptionError } = await supabaseAdmin
+			.from('subscriptions')
+			.select('*, prices(*, products(*))')
+			.in('status', ['trialing', 'active'])
+			.eq('user_id', user.id)
+			.single();
+
+		if (subscriptionError) {
+			return {};
+		}
+
+		return {
+			subscription,
+		};
+	});

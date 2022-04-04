@@ -20,13 +20,18 @@ export default function Footer() {
 							</Link>
 						</li>
 						<li className="pb-4">
-							<Link href="/">
+							<Link href="/about">
 								<a className="footer-link">About</a>
 							</Link>
 						</li>
 						<li className="pb-4">
 							<Link href="/blog">
 								<a className="footer-link">Blog</a>
+							</Link>
+						</li>
+						<li className="pb-4">
+							<Link href="/pricing">
+								<a className="footer-link">Pricing</a>
 							</Link>
 						</li>
 					</ul>

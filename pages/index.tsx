@@ -130,25 +130,6 @@ export default function Home() {
 						</p>
 					</div>
 				</div>
-
-				<div className="flex flex-col-reverse items-center mb-16 lg:flex-row">
-					<div className="flex-1 text-center lg:text-left">
-						<h4 className="mb-3 text-3xl font-bold">Security</h4>
-						<p className="mb-8 text-gray-600 dark:text-gray-200">
-							Do people question your trades or do they doubt you? Your public
-							profile page can be shared to show your performance while hiding
-							all of your sensative information.
-						</p>
-					</div>
-					<div className="flex items-center justify-center flex-1">
-						<Image
-							alt="alt tag for image"
-							src="/images/internet.svg"
-							height="224"
-							width="224"
-						/>
-					</div>
-				</div>
 			</section>
 
 			{/* Social proof section */}
@@ -271,8 +252,8 @@ export default function Home() {
 						<summary className="flex-auto px-4">How much does it cost?</summary>
 						<div className="px-6 mt-4">
 							<p className="pt-4 pb-2 border-t border-gray-300 border-solid">
-								For a limited time, we are offering full access to all our
-								tools.
+								For a limited time while our we are in beta, we are offering
+								full access to all our tools for free.
 							</p>
 						</div>
 					</details>
@@ -283,7 +264,17 @@ export default function Home() {
 						</summary>
 						<div className="px-6 mt-4">
 							<p className="pt-4 pb-2 border-t border-gray-300 border-solid">
-								No. You need to create an account.
+								No. You need to create an account. It's free though!
+							</p>
+						</div>
+					</details>
+
+					<details className="flex flex-row-reverse px-2 py-3 mt-2 mb-4 text-lg font-medium bg-white rounded-lg cursor-pointer dark:bg-gray-600">
+						<summary className="flex-auto px-4">Can I a get a refund?</summary>
+						<div className="px-6 mt-4">
+							<p className="pt-4 pb-2 border-t border-gray-300 border-solid">
+								No. Since this is a digital product, the trasaction is final
+								since this is a digital product and no refunds will be given.
 							</p>
 						</div>
 					</details>
