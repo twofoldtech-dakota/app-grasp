@@ -226,7 +226,7 @@ export default function Home() {
 			<section className="bg-gradient-to-r from-primary-500 to-primary-700">
 				<div className="container px-6 py-20 mx-auto text-center">
 					<h2 className="mb-6 text-4xl font-bold text-center text-white">
-						Start improving today
+						Become a better trader today
 					</h2>
 					<h3 className="my-4 text-2xl text-white">
 						You don't want to miss this opportunity!
@@ -252,8 +252,8 @@ export default function Home() {
 						<summary className="flex-auto px-4">How much does it cost?</summary>
 						<div className="px-6 mt-4">
 							<p className="pt-4 pb-2 border-t border-gray-300 border-solid">
-								For a limited time while our we are in beta, we are offering
-								full access to all our tools for free.
+								For a limited time while we are in beta, we are offering full
+								access to all our tools for free.
 							</p>
 						</div>
 					</details>
@@ -273,8 +273,8 @@ export default function Home() {
 						<summary className="flex-auto px-4">Can I a get a refund?</summary>
 						<div className="px-6 mt-4">
 							<p className="pt-4 pb-2 border-t border-gray-300 border-solid">
-								No. Since this is a digital product, the trasaction is final
-								since this is a digital product and no refunds will be given.
+								No. Since this is a digital product, the trasaction is final and
+								no refunds will be given.
 							</p>
 						</div>
 					</details>
