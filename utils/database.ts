@@ -159,19 +159,6 @@ export const deletePriceRecord = async (price: Stripe.Price) => {
 	}
 };
 
-export const deleteTrade = async (id: string) => {
-	const { error } = await supabaseAdmin
-		.from('trades')
-		.delete()
-		.match({ id: id });
-
-	if (error) {
-		console.error(`Error occurred while deleting the trade: ${error.message}`);
-	} else {
-		console.log(`Trade deleted: ${id}`);
-	}
-};
-
 export const manageSubscriptionStatusChange = async (
 	subscriptionId: string,
 	customerId: string,

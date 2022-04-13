@@ -23,7 +23,7 @@ export default function Navbar() {
 					{session ? (
 						<ul className="inline-flex">
 							<li>
-								<Link href="/trade">
+								<Link href="/trades">
 									<a className="header-link">Trades</a>
 								</Link>
 							</li>

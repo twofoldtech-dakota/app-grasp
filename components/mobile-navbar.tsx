@@ -74,7 +74,7 @@ export default function MobileNav({ session }: MobileNavbarProps) {
 					</Link>
 					{session && (
 						<>
-							<Link href="/trade">
+							<Link href="/trades">
 								<a
 									className="px-3 py-2 rounded-lg text-base font-bold mb-2 text-center"
 									onClick={onToggleNav}
