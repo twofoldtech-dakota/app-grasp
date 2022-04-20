@@ -4,8 +4,8 @@ export type Trade = {
 	pair: string;
 	description: string;
 	image: string;
-	entry_date: Date;
-	exit_date: Date;
+	entry_date: string;
+	exit_date: string;
 	entry_price: number;
 	exit_price: number;
 	position_size: number;

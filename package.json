@@ -8,6 +8,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@hookform/resolvers": "^2.8.8",
 		"@stripe/stripe-js": "^1.17.1",
 		"@supabase/supabase-js": "^1.30.2",
 		"axios": "^0.21.4",
@@ -23,8 +24,10 @@
 		"next": "^12.0.7",
 		"next-themes": "^0.0.15",
 		"react": "^17.0.2",
+		"react-datetime-picker": "^3.5.0",
 		"react-dom": "^17.0.2",
 		"react-filepond": "^7.1.1",
+		"react-hook-form": "^7.30.0",
 		"react-query": "^3.34.16",
 		"reading-time": "^1.5.0",
 		"rehype-katex": "^6.0.1",
@@ -37,7 +40,8 @@
 		"stripe": "^8.176.0",
 		"swr": "^1.0.1",
 		"unist-util-visit": "^4.1.0",
-		"uuid": "^8.3.2"
+		"uuid": "^8.3.2",
+		"yup": "^0.32.11"
 	},
 	"devDependencies": {
 		"@tailwindcss/forms": "^0.4.0",

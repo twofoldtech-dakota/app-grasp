@@ -5,6 +5,7 @@ import Button from '@/components/button';
 import { supabase } from '@/utils/supabase-client';
 import { supabaseAdmin } from '@/utils/supabase-admin-client';
 import { UserDetails } from '@/types/user-details';
+import ExchangeList from '@/components/exchange/exchange-list';
 
 // Import React FilePond
 import { FilePond, registerPlugin } from 'react-filepond';
@@ -155,6 +156,8 @@ export default function Profile({ userDetails }: ProfileProps) {
 								{message.content}
 							</div>
 						)}
+
+						<ExchangeList />
 					</div>
 				</div>
 			</div>

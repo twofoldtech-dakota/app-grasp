@@ -32,7 +32,7 @@ export default function EditTrade({ trade }: EditTradeProps) {
 
 	return (
 		<>
-			<section className="py-10">
+			<section className="p-10">
 				<div className="flex flex-col items-center mb-6">
 					<h2 className="mb-6 text-4xl font-bold text-center">Edit Trade</h2>
 					<TradeForm
@@ -60,14 +60,21 @@ export default function EditTrade({ trade }: EditTradeProps) {
 						onSetupChange={(evt) => setSetup(evt.target.value)}
 						trigger={trigger}
 						onTriggerChange={(evt) => setTrigger(evt.target.value)}
-						onSubmit={async (evt) => {
-							evt.preventDefault();
+						onSubmit={async () => {
 							updateTradeMutation.mutate(
 								{
 									id: trade.id,
 									pair: pair,
 									entryDate: entryDate,
 									entryPrice: entryPrice,
+									exitDate: exitDate,
+									exitPrice: exitPrice,
+									positionSize: positionSize,
+									risk: riskPercentage,
+									description: description,
+									type: type,
+									trigger: trigger,
+									setup: setup,
 								},
 								{
 									onSuccess() {

@@ -26,11 +26,12 @@ export default function NewTrade() {
 
 	return (
 		<>
-			<section className="py-10">
+			<section className="p-10">
 				<div className="flex flex-col items-center mb-6">
 					<h2 className="mb-6 text-4xl font-bold text-center">
 						Add a new trade
 					</h2>
+					<hr />
 					<TradeForm
 						pair={pair}
 						onPairChange={(evt) => setPair(evt.target.value)}
@@ -56,14 +57,21 @@ export default function NewTrade() {
 						onSetupChange={(evt) => setSetup(evt.target.value)}
 						trigger={trigger}
 						onTriggerChange={(evt) => setTrigger(evt.target.value)}
-						onSubmit={async (evt) => {
-							evt.preventDefault();
+						onSubmit={async () => {
 							addTradeMutation.mutate(
 								{
-									pair: pair,
 									userId: userDetails.id,
+									pair: pair,
 									entryDate: entryDate,
 									entryPrice: entryPrice,
+									exitDate: exitDate,
+									exitPrice: exitPrice,
+									positionSize: positionSize,
+									risk: riskPercentage,
+									description: description,
+									type: type,
+									trigger: trigger,
+									setup: setup,
 								},
 								{
 									onSuccess: () => {
