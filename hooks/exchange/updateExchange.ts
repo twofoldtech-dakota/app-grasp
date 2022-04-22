@@ -1,13 +1,13 @@
 import { supabase } from '@/utils/supabase-client';
 
-export async function updateExchange({ id, userId, name, key, secret }) {
+export async function updateExchange({ id, name, key, secret, active }) {
 	const { data, error } = await supabase
 		.from('exchanges')
 		.update({
-			user_id: userId,
 			name: name,
-			key: key,
-			secret: secret,
+			api_key: key,
+			api_secret: secret,
+			active: active,
 		})
 		.eq('id', id);
 

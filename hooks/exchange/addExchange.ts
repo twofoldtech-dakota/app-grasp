@@ -7,8 +7,9 @@ export async function addExchange({ userId, name, key, secret }) {
 			id: uuidv4(),
 			user_id: userId,
 			name: name,
-			key: key,
-			secret: secret,
+			api_key: key,
+			api_secret: secret,
+			active: true,
 		},
 	]);
 	if (error) return '';

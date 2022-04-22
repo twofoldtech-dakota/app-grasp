@@ -107,7 +107,7 @@ export default function Profile({ userDetails }: ProfileProps) {
 					<div className="px-5 py-4">
 						<form
 							onSubmit={handleUserDetailsSave}
-							className="flex flex-col items-center space-y-4"
+							className="flex flex-col items-center pb-6 space-y-4 border-b"
 						>
 							<div className="mx-auto">
 								<FilePond
@@ -157,7 +157,7 @@ export default function Profile({ userDetails }: ProfileProps) {
 							</div>
 						)}
 
-						<ExchangeList />
+						<ExchangeList userId={userDetails.id} />
 					</div>
 				</div>
 			</div>

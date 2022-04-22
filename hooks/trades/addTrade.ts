@@ -14,6 +14,7 @@ export async function addTrade({
 	setup,
 	trigger,
 	type,
+	active,
 }) {
 	const { data, error } = await supabase.from('trades').insert([
 		{
@@ -30,6 +31,7 @@ export async function addTrade({
 			setup: setup,
 			trigger: trigger,
 			type: type,
+			active: active,
 		},
 	]);
 	if (error) return '';

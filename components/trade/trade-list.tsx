@@ -51,6 +51,9 @@ export default function TradeList() {
 											Status
 										</th>
 										<th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-2">
+											Exchange
+										</th>
+										<th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-2">
 											Edit
 										</th>
 										<th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase border-2">
@@ -109,6 +112,12 @@ export default function TradeList() {
 													<span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
 														{status}
 													</span>
+												</td>
+
+												<td className="px-6 py-4 whitespace-no-wrap border-b">
+													<div className="text-sm leading-5">
+														{trade.exchange_id}
+													</div>
 												</td>
 
 												<td className="px-6 py-4 text-sm leading-5 whitespace-no-wrap border-b">

@@ -8,6 +8,7 @@ import { supabaseAdmin } from '@/utils/supabase-admin-client';
 import { useMutation, useQuery } from 'react-query';
 import { updateTrade } from 'hooks/trades/updateTrade';
 import { getTrades } from 'hooks/trades/getTrades';
+import { getExchanges } from 'hooks/exchange/getExchanges';
 
 interface EditTradeProps {
 	trade: Trade;
@@ -16,6 +17,7 @@ interface EditTradeProps {
 export default function EditTrade({ trade }: EditTradeProps) {
 	const updateTradeMutation = useMutation(updateTrade);
 	const getTradesQuery = useQuery('getTrades', getTrades);
+	const getExchangesQuery = useQuery('getExchanges', getExchanges);
 
 	const [pair, setPair] = useState(trade.pair);
 	const [description, setDescription] = useState(trade.description);
@@ -28,6 +30,8 @@ export default function EditTrade({ trade }: EditTradeProps) {
 	const [type, setType] = useState(trade.type);
 	const [setup, setSetup] = useState(trade.setup);
 	const [trigger, setTrigger] = useState(trade.trigger);
+	const [selectedExchange, setSelectedExchange] = useState(null);
+
 	const router = useRouter();
 
 	return (
@@ -60,6 +64,9 @@ export default function EditTrade({ trade }: EditTradeProps) {
 						onSetupChange={(evt) => setSetup(evt.target.value)}
 						trigger={trigger}
 						onTriggerChange={(evt) => setTrigger(evt.target.value)}
+						selectedExchange={selectedExchange}
+						onExchangeChange={(evt) => setSelectedExchange(evt.target.value)}
+						exchanges={getExchangesQuery}
 						onSubmit={async () => {
 							updateTradeMutation.mutate(
 								{

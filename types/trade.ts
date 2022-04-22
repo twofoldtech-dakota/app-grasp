@@ -16,4 +16,5 @@ export type Trade = {
 	type: string;
 	setup: string;
 	trigger: string;
+	exchange: string;
 };

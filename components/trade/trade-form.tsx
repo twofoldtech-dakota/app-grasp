@@ -2,6 +2,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Link from 'next/link';
+import Select from 'react-select';
+// import { useState } from 'react';
+// import { getExchanges } from 'hooks/exchange/getExchanges';
+// import { useQuery } from 'react-query';
 
 export default function TradeForm({
 	pair,
@@ -32,7 +36,15 @@ export default function TradeForm({
 	onSetupChange,
 	onTriggerChange,
 	onSubmit,
+	onExchangeChange,
+	selectedExchange,
 }) {
+	// const getExchangesQuery = useQuery('getExchanges', getExchanges);
+	const options = [
+		{ value: 'chocolate', label: 'Chocolate' },
+		{ value: 'strawberry', label: 'Strawberry' },
+		{ value: 'vanilla', label: 'Vanilla' },
+	];
 	const validationSchema = Yup.object().shape({
 		pair: Yup.string().required('Traiding pair is required'),
 		position_size: Yup.number().required('Position size is required'),
@@ -199,20 +211,20 @@ export default function TradeForm({
 			</div>
 			<div className="flex flex-wrap mb-2 -mx-3">
 				<div className="w-full px-3 mb-6 md:w-1/3 md:mb-0">
-					<label
-						className="block mb-2 text-xs font-bold tracking-wide uppercase"
-						htmlFor="type"
-					>
-						Is this a buy?
+					<label className="block mb-2 text-xs font-bold tracking-wide uppercase">
+						Exchange
 					</label>
-					<input
-						className="block px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
-						name="type"
-						id="type"
-						value={type}
-						type="checkbox"
-						onChange={onTypeChange}
-					/>
+					<div className="relative">
+						<Select
+							{...register('exchange')}
+							className="block w-full mb-3 leading-tight rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
+							defaultValue={selectedExchange}
+							onChange={onExchangeChange}
+							options={options}
+							name="exchanges"
+							placeholder="Choose Exchange"
+						/>
+					</div>{' '}
 				</div>
 				<div className="w-full px-3 mb-6 md:w-1/3 md:mb-0">
 					<label className="block mb-2 text-xs font-bold tracking-wide uppercase">
@@ -240,6 +252,24 @@ export default function TradeForm({
 						name="trigger"
 						value={trigger}
 						onChange={onTriggerChange}
+					/>
+				</div>
+			</div>
+			<div className="flex flex-wrap mb-2 -mx-3">
+				<div className="w-full px-3 mb-6 md:w-1/3 md:mb-0">
+					<label
+						className="block mb-2 text-xs font-bold tracking-wide uppercase"
+						htmlFor="type"
+					>
+						Is this a buy?
+					</label>
+					<input
+						className="block px-4 py-3 mb-3 leading-tight border rounded appearance-none focus:outline-none"
+						name="type"
+						id="type"
+						value={type}
+						type="checkbox"
+						onChange={onTypeChange}
 					/>
 				</div>
 			</div>
