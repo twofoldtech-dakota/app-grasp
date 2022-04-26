@@ -8,8 +8,7 @@ export async function getTrades() {
 		.select('*');
 
 	if (tradeError) {
-		console.error(tradeError);
-		return data;
+		console.error('Error fetching trades');
 	}
 
 	data = trades;

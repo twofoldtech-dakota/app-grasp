@@ -116,7 +116,7 @@ export default function TradeList() {
 
 												<td className="px-6 py-4 whitespace-no-wrap border-b">
 													<div className="text-sm leading-5">
-														{trade.exchange_id}
+														{trade.exchange}
 													</div>
 												</td>
 

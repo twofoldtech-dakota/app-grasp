@@ -13,6 +13,7 @@ export async function updateTrade({
 	setup,
 	trigger,
 	type,
+	exchange,
 }) {
 	const { data, error } = await supabase
 		.from('trades')
@@ -28,10 +29,11 @@ export async function updateTrade({
 			setup: setup,
 			trigger: trigger,
 			type: type,
+			exchange: exchange,
 		})
 		.eq('id', id);
 
-	if (error) return '';
+	if (error) throw new Error('Error updating trade');
 
 	return data;
 }

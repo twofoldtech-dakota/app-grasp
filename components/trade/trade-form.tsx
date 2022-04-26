@@ -2,10 +2,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Link from 'next/link';
-import Select from 'react-select';
-// import { useState } from 'react';
-// import { getExchanges } from 'hooks/exchange/getExchanges';
-// import { useQuery } from 'react-query';
+import { getExchanges } from 'hooks/exchange/getExchanges';
+import { useQuery } from 'react-query';
 
 export default function TradeForm({
 	pair,
@@ -37,21 +35,32 @@ export default function TradeForm({
 	onTriggerChange,
 	onSubmit,
 	onExchangeChange,
-	selectedExchange,
+	exchange,
 }) {
-	// const getExchangesQuery = useQuery('getExchanges', getExchanges);
-	const options = [
-		{ value: 'chocolate', label: 'Chocolate' },
-		{ value: 'strawberry', label: 'Strawberry' },
-		{ value: 'vanilla', label: 'Vanilla' },
-	];
+	const getExchangesQuery = useQuery('getExchanges', getExchanges);
+
 	const validationSchema = Yup.object().shape({
 		pair: Yup.string().required('Traiding pair is required'),
-		position_size: Yup.number().required('Position size is required'),
-		risk_percentage: Yup.number(),
-		entry_price: Yup.number().required('Entry Price is required'),
-		exit_price: Yup.number(),
+		position_size: Yup.string().required('Position size is required'),
+		risk_percentage: Yup.string()
+			.typeError('Exit price must be a positive number')
+			.notRequired()
+			.nullable(true),
+		entry_price: Yup.number()
+			.typeError('Entry price must be a positive number')
+			.min(0)
+			.required('Entry Price is required'),
+		exit_price: Yup.string()
+			.typeError('Exit price must be a positive number')
+			.notRequired()
+			.nullable(true),
 		entry_date: Yup.string().required('Entry Date is required'),
+		exit_date: Yup.string(),
+		description: Yup.string(),
+		exchange: Yup.string(),
+		setup: Yup.string(),
+		trigger: Yup.string(),
+		type: Yup.boolean(),
 	});
 	const {
 		register,
@@ -88,22 +97,20 @@ export default function TradeForm({
 					<label className="block mb-2 text-xs font-bold tracking-wide uppercase">
 						Position Size
 					</label>
-					<div className="relative">
-						<input
-							type="number"
-							step="any"
-							placeholder="1,000"
-							{...register('position_size')}
-							className={`block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800 ${
-								errors.position_size ? 'border-red-500' : ''
-							}`}
-							defaultValue={position_size}
-							onChange={onPositionSizeChange}
-						/>
-						<p className="text-xs italic text-red-500">
-							{errors.position_size?.message}
-						</p>
-					</div>
+					<input
+						type="number"
+						step="any"
+						placeholder="1,000"
+						{...register('position_size')}
+						className={`block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800 ${
+							errors.position_size ? 'border-red-500' : ''
+						}`}
+						defaultValue={position_size}
+						onChange={onPositionSizeChange}
+					/>
+					<p className="text-xs italic text-red-500">
+						{errors.position_size?.message}
+					</p>
 				</div>
 				<div className="w-full px-3 mb-6 md:w-1/3 md:mb-0">
 					<label className="block mb-2 text-xs font-bold tracking-wide uppercase">
@@ -150,7 +157,10 @@ export default function TradeForm({
 						Exit Price
 					</label>
 					<input
-						className="block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
+						{...register('exit_price')}
+						className={`block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800 ${
+							errors.exit_price ? 'border-red-500' : ''
+						}`}
 						name="exit_price"
 						value={exit_price}
 						type="number"
@@ -158,6 +168,9 @@ export default function TradeForm({
 						placeholder="2.51"
 						onChange={onExitPriceChange}
 					/>
+					<p className="text-xs italic text-red-500">
+						{errors.exit_price?.message}
+					</p>
 				</div>
 			</div>
 			<div className="flex flex-wrap mb-6 -mx-3">
@@ -183,6 +196,7 @@ export default function TradeForm({
 						Exit Date
 					</label>
 					<input
+						{...register('exit_date')}
 						className="block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
 						name="exit_date"
 						value={exit_date}
@@ -197,6 +211,7 @@ export default function TradeForm({
 						Description
 					</label>
 					<textarea
+						{...register('description')}
 						className="block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
 						name="description"
 						rows={6}
@@ -215,15 +230,39 @@ export default function TradeForm({
 						Exchange
 					</label>
 					<div className="relative">
-						<Select
-							{...register('exchange')}
-							className="block w-full mb-3 leading-tight rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
-							defaultValue={selectedExchange}
-							onChange={onExchangeChange}
-							options={options}
-							name="exchanges"
-							placeholder="Choose Exchange"
-						/>
+						{getExchangesQuery.isLoading && <div>Loading Exchanges...</div>}
+						{getExchangesQuery.error && (
+							<div>There was an error retrieving your exchanges</div>
+						)}
+						{getExchangesQuery.data ? (
+							<select
+								{...register('exchange')}
+								className="block w-full px-4 py-3 mb-3 leading-tight border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
+								placeholder="Choose Exchange"
+								name="exchange"
+								onChange={onExchangeChange}
+								defaultValue={exchange}
+							>
+								<option value="-1">Select Exchange</option>
+								{getExchangesQuery.data.map((exchangeItem) => {
+									if (exchange == exchangeItem.name) {
+										console.log('selected', exchange);
+										return (
+											<option key={exchangeItem.id} value={exchangeItem.name}>
+												{exchangeItem.name}
+											</option>
+										);
+									}
+									return (
+										<option key={exchangeItem.id} value={exchangeItem.name}>
+											{exchangeItem.name}
+										</option>
+									);
+								})}
+							</select>
+						) : (
+							<option>No exchanges found</option>
+						)}
 					</div>{' '}
 				</div>
 				<div className="w-full px-3 mb-6 md:w-1/3 md:mb-0">
@@ -232,7 +271,8 @@ export default function TradeForm({
 					</label>
 					<div className="relative">
 						<input
-							className="block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
+							{...register('setup')}
+							className="block w-full px-4 py-3 mb-3 leading-tight border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
 							type="text"
 							placeholder="Support Retest"
 							name="setup"
@@ -246,6 +286,7 @@ export default function TradeForm({
 						Trigger
 					</label>
 					<input
+						{...register('trigger')}
 						className="block w-full px-4 py-3 mb-3 leading-tight bg-white border rounded appearance-none dark:text-white dark:bg-gray-900 focus:outline-none dark:focus:bg-gray-800"
 						type="text"
 						placeholder="1hr close"
@@ -264,7 +305,8 @@ export default function TradeForm({
 						Is this a buy?
 					</label>
 					<input
-						className="block px-4 py-3 mb-3 leading-tight border rounded appearance-none focus:outline-none"
+						{...register('type')}
+						className="block px-4 py-3 mb-3 leading-tight border rounded appearance-none focus:outline-none dark:bg-gray-900"
 						name="type"
 						id="type"
 						value={type}

@@ -22,6 +22,7 @@ export default function NewTrade() {
 	const [type, setType] = useState('');
 	const [setup, setSetup] = useState('');
 	const [trigger, setTrigger] = useState('');
+	const [exchange, setExchange] = useState('');
 	const router = useRouter();
 
 	return (
@@ -57,7 +58,17 @@ export default function NewTrade() {
 						onSetupChange={(evt) => setSetup(evt.target.value)}
 						trigger={trigger}
 						onTriggerChange={(evt) => setTrigger(evt.target.value)}
+						exchange={exchange}
+						onExchangeChange={(evt) => setExchange(evt.target.value)}
 						onSubmit={async () => {
+							let nullableExitPrice = null;
+							if (exitPrice != '') {
+								nullableExitPrice = exitPrice;
+							}
+							let nullableRiskPercentage = null;
+							if (riskPercentage != '') {
+								nullableRiskPercentage = riskPercentage;
+							}
 							addTradeMutation.mutate(
 								{
 									userId: userDetails.id,
@@ -65,13 +76,15 @@ export default function NewTrade() {
 									entryDate: entryDate,
 									entryPrice: entryPrice,
 									exitDate: exitDate,
-									exitPrice: exitPrice,
+									exitPrice: nullableExitPrice,
 									positionSize: positionSize,
-									risk: riskPercentage,
+									risk: nullableRiskPercentage,
 									description: description,
 									type: type,
 									trigger: trigger,
 									setup: setup,
+									active: true,
+									exchange: exchange,
 								},
 								{
 									onSuccess: () => {
